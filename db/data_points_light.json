@@ -1,0 +1,18 @@
+{
+  "dataPoints": [
+    {
+      "trip_date" : "2019-12-08T08:00:00.000Z",
+      "home_state" : "AK",
+      "trip_count" : 641
+    },
+    {
+      "trip_date" : "2019-12-08T08:00:00.000Z",
+      "home_state" : "AK",
+      "trip_count" : 241
+    },
+    {
+      "trip_date" : "2019-12-08T08:00:00.000Z",
+      "home_state" : "AK",
+      "trip_count" : 52
+    }
+  ]}

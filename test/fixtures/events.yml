@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip_date: 
+  home_state: MyString
+  string,: MyString
+  trip_count: MyString
+  integer: MyString
+
+two:
+  trip_date: 
+  home_state: MyString
+  string,: MyString
+  trip_count: MyString
+  integer: MyString
