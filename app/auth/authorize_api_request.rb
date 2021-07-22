@@ -1,4 +1,3 @@
-# app/auth/authorize_api_request.rb
 class AuthorizeApiRequest
   def initialize(headers = {})
     @headers = headers

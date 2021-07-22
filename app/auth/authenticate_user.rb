@@ -1,4 +1,3 @@
-# app/auth/authenticate_user.rb
 class AuthenticateUser
   def initialize(email, password)
     @email = email
