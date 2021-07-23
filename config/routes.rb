@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :events
+  namespace :api do
+    scope module: :v1, constraints: ApiVersion.new('v1', true) do
+      get 'events', to: 'events#index'
+    end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  post 'signin', to: 'authentication#authenticate'
-  post 'signup', to: 'users#create'
+    post 'signin', to: 'authentication#authenticate'
+    post 'signup', to: 'users#create'
+  end
 end
