@@ -5,10 +5,13 @@ module Api
 
       def index
         if (params[:page] && params[:per_page])
-          @events = Event.all.paginate(:page => params[:page], :per_page => params[:per_page]) #.order('created_at ASC')
+          @events = Event.all.paginate(:page => params[:page], :per_page => params[:per_page]).order('home_state ASC')
         else
-          @events = event.all
+          # @events = Event.order('home_state DESC').last(200)  #all.order('home_state ASC')
+          @events = Event.all.order('home_state ASC')
         end
+
+        puts @events.length
 
         respond_to do |format|
           format.json { @events }
