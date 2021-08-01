@@ -1,0 +1,27 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-unused-vars": [1, {"vars": "all", "args": "none", "varsIgnorePattern": "React"}],
+    "no-var": 2,
+    "no-undef": 2,
+    "object-curly-spacing": [2, "always", { "objectsInObjects": true }],
+    "semi": [2, "never"],
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "valid-jsdoc": 2,
+    "jsx-quotes": [2, "prefer-double"],
+    "space-infix-ops": ["error", {"int32Hint": false}],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-no-undef" : 2,
+    "react/react-in-jsx-scope": 2
+  },
+  "plugins": [
+    "react"
+  ]
+}

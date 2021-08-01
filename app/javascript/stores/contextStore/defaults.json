@@ -1,0 +1,118 @@
+{
+  "config": {
+    "mode": "Tiles",
+    "xxsWidth": 320,
+    "useDefaultBackground": false,
+    "contentMaxWidth": 960,
+    "navigationMode": "hidden",
+    "drawerWidth": 240,
+    "loginRoutes": [
+      "/accounts",
+      "/analyzer",
+      "/aggregation",
+      "/budgets",
+      "/cashflow/agenda",
+      "/",
+      "/goals",
+      "/help",
+      "/networth",
+      "/transactions"
+    ],
+    "dashboard": {
+      "cards": [
+        "SpendingWheel",
+        "Budgets",
+        "NetWorth",
+        "Accounts",
+        "Transactions",
+        "Goals"
+      ]
+    },
+    "cashflow": {
+      "projectedBalanceLabel": "Daily Balance"
+    },
+    "typography": {},
+    "hideNotificationsSnackbar": false,
+    "hideAccountBalanceType": false,
+    "hideContactInfo": false,
+    "disableFixed": false,
+    "disableHarvests": false,
+    "disableAggregation": false,
+    "transformAccountNames": false,
+    "tagIcon": {
+      "variant": "material"
+    },
+    "transactions": {
+      "modificationDelay": 3000,
+      "showOriginalMemo": false
+    },
+    "aggregation": {
+      "modificationDelay": 2500
+    },
+    "help": {
+      "disableSubmitRequest": false,
+      "disableQuestions": []
+    },
+    "header": {
+      "includeNav": true,
+      "height": 120,
+      "alpha": 0.7
+    },
+    "breakpoints": {
+      "values": {
+        "xs": 0,
+        "sm": 750,
+        "md": 960,
+        "lg": 1280,
+        "xl": 1920
+      }
+    },
+    "palette": {
+      "contrastThreshold": 2,
+      "primary": {
+        "main": "#045790"
+      },
+      "secondary": {
+        "main": "#b2d594"
+      },
+      "custom": {
+        "positive": "#43a047",
+        "negative": "#e53935",
+        "success": "#81c784",
+        "error": "#e57373",
+        "warning": "#fff176",
+        "donut": [
+          "#f7e000", "#c585d5", "#ff5b69", "#00c7b6",
+          "#008f80", "#ffc04f", "#5a7576", "#8fdaff",
+          "#42577d", "#ea9fe2"
+        ]
+      }
+    },
+    "topLevelRoutes": [
+      "/",
+      "/budgets",
+      "/cashflow/agenda",
+      "/cashflow",
+      "/goals",
+      "/networth",
+      "/transactions/search",
+      "/accounts",
+      "/aggregation",
+      "/alerts",
+      "/help"
+    ],
+    "disableBackOnTopLevelRoutes": false,
+    "overrides": {
+      "MuiPickersBasePicker": {
+        "pickerView": {
+          "maxWidth": "none"
+        }
+      },
+      "MuiPickersMonthSelection": {
+        "container": {
+          "width": "unset"
+        }
+      }
+    }
+  }
+}
