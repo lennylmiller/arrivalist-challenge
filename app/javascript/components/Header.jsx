@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer'
 import { Typography } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
-import bar from '@material-ui/core/Toolbar'
+import Toolbar from '@material-ui/core/Toolbar'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -91,7 +91,7 @@ const Header = () => {
           [classes.appBarShift]: open,
         })}
       >
-        <bar classes={{ root: classes.toolbarRoot }}>
+        <Toolbar classes={{ root: classes.toolbarRoot }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -101,7 +101,7 @@ const Header = () => {
           >
             <MenuIcon/>
           </IconButton>
-        </bar>
+        </Toolbar>
       </AppBar>
       <Drawer
         className={classes.drawer}

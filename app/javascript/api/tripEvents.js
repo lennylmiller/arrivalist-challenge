@@ -1,4 +1,3 @@
-import fetch, { checkStatus, parseJSON } from './fetch'
 
 export function getAllTripEvents() {
   return fetch('/events')

@@ -2,7 +2,7 @@ import { Table, message, Popconfirm } from "antd";
 import React from "react";
 import AddBeerModal from "./AddBeerModal";
 
-class Dashboard extends React.Component {
+class Beer extends React.Component {
     columns = [
         {
             title: "Brand",
@@ -105,4 +105,4 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+export default Beer;

@@ -11,7 +11,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create dashboard" do
-    assert_difference('Dashboard.count') do
+    assert_difference('Beer.count') do
       post dashboards_url, params: { dashboard: { description: @dashboard.description, name: @dashboard.name } }, as: :json
     end
 
@@ -29,7 +29,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy dashboard" do
-    assert_difference('Dashboard.count', -1) do
+    assert_difference('Beer.count', -1) do
       delete dashboard_url(@dashboard), as: :json
     end
 

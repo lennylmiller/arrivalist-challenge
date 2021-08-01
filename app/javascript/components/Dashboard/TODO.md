@@ -26,7 +26,7 @@
       * [] From and To date: US Map values are based on a summation of trip_counts for each state
 >>* [] Move React code to Ruby on Rails project
     * [x] Get working via a simple tutorial
-    * [] Get Material-UI Dashboard 
+    * [] Get Material-UI Beer 
     * [] Port code over from FE to BE
   * [] Unit tests for Store
     * [] Analyzer: for each chart test the data shaping

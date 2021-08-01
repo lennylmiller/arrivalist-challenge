@@ -12,7 +12,6 @@ import {
   max,
   timeFormat,
   scaleUtc
-
 } from 'd3'
 import useResizeObserver from './useResizeObserver'
 
