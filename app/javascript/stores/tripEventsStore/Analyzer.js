@@ -1,9 +1,10 @@
-import { action, observable, computed } from 'mobx'
+import {action, observable, computed} from 'mobx'
 import * as api from '@geezeo/api'
-import { sum } from 'd3-array'
-import { nest } from 'd3-collection'
-import { shortDateTime } from '../../utils/timeFormats'
-import { between } from '@geezeo/utils/types'
+import {
+  sum,
+  nest,
+  timeFormat
+} from 'd3'
 
 class Analyzer {
 
@@ -80,12 +81,12 @@ class Analyzer {
       }, {})
   }
 
-  @action load = ({ force = false } = {}) => {
-    if (! this._loadPromise || force) {
+  @action load = ({force = false} = {}) => {
+    if (!this._loadPromise || force) {
       this._loadPromise = api
         .getAllTripEvents()
         .then(action(response => {
-          this.dataPoints = response.data_points
+          this.dataPoints = response
             .map(tripEvent => this._transformTripEvents(tripEvent))
           this.stateList = this._getEmbeddedStates()
           this.isBusy = false
@@ -113,7 +114,7 @@ class Analyzer {
     this.selectedPeriods.length = 0
     this.period = period
 
-    const { startDate, endDate } = this._getPeriodRange(period)
+    const {startDate, endDate} = this._getPeriodRange(period)
     this.startDate = startDate
     this.endDate = endDate
 
@@ -149,7 +150,7 @@ class Analyzer {
   _getPeriodRange = period => {
     let year = 2019
     let dataWithinRange = this.dataPoints
-    if (! ['all', '2019VS2020'].includes(period)) {
+    if (!['all', '2019VS2020'].includes(period)) {
       year = parseInt(period)
       dataWithinRange = this.dataPoints.filter(item => {
         return item.trip_date.getFullYear() === year
@@ -161,8 +162,8 @@ class Analyzer {
 
   _transformTripEvents = tripEvent => {
     return {
-      id:         tripEvent.id,
-      trip_date:  new Date(tripEvent.trip_date),
+      id: tripEvent.id,
+      trip_date: new Date(tripEvent.trip_date),
       home_state: tripEvent.home_state,
       trip_count: tripEvent.trip_count
     }
@@ -189,6 +190,16 @@ class Analyzer {
         return results
       }, {})
 
+    // const statesGroup = group()
+    //   .key(tripEvent => tripEvent.home_state)
+    //   .key(tripEvent => shortDateTime(tripEvent.trip_date))
+    //   .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
+    //   .entries(this.dataPoints)
+    //   .reduce((results, item) => {
+    //     results[item.key] = item.values
+    //     return results
+    //   }, {})
+
     const states = []
 
     for (let state in statesGroup) {
@@ -199,4 +210,11 @@ class Analyzer {
   }
 }
 
+const between = (here, low, high) => {
+  return low > high
+    ? here >= high && here <= low
+    : here >= low && here <= high
+}
 export default Analyzer
+
+const shortDateTime  = timeFormat('%-m/%-d/%Y %H:%M %p')

@@ -18,6 +18,7 @@ const styles = theme => ({
   formControl:     {
     minWidth: 100
   },
+
   formControlDate: {
     marginTop:  0,
     marginLeft: theme.spacing(2),
