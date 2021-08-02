@@ -75,7 +75,7 @@ Another consequence was the time I would have spent finishing features while doi
 rails migration;
 * [ ]  Annotations
 * [ ] Legend: Year
-* [ ] State coordinated with circles
+* [ ] State coordinated map colors with circles
 * [ ] Nice to have
   * [ ] Selecting multiple states
   * [ ] Theme Switching
