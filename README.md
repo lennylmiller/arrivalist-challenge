@@ -20,7 +20,7 @@ $ yarn
 $ rails s
 ```
 
-Click this link [http://localhost:8080](http://localhost:8080)
+Click this link [http://localhost:3000](http://localhost:3000)
 
 ## Features
 
