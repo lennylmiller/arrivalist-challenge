@@ -1,6 +1,6 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
-import { geoCentroid } from 'd3-geo'
+import {makeStyles} from '@material-ui/core'
+import {geoCentroid} from 'd3-geo'
 import {
   ComposableMap,
   Geographies,
@@ -13,13 +13,13 @@ import allStates from './data/allstates.json'
 
 const useStyles = makeStyles((theme) => {
   return {
-    root:          {},
-    mapChart:      {
+    root: {},
+    mapChart: {
       position: 'relative',
-      left:     -67,
-      top:      -80
+      left: -67,
+      top: -80
     },
-    state:         {
+    state: {
       fill: theme.palette.primary
     },
     selectedState: {
@@ -41,14 +41,14 @@ const offsets = {
   DC: [49, 21]
 }
 
-const MapChart = ({ originState, mapChartData }) => {
+const MapChart = ({originState, mapChartData, setTooltipContent}) => {
   const classes = useStyles()
 
   return (
     <div className={classes.mapChart}>
-      <ComposableMap projection="geoAlbersUsa" projectionConfig={{ scale: 980, }}>
+      <ComposableMap projection="geoAlbersUsa" projectionConfig={{scale: 980,}}>
         <Geographies geography={geoUrl}>
-          {({ geographies }) => (
+          {({geographies}) => (
             <>
               {geographies.map(geo => {
                 const cur = allStates.find(s => s.val === geo.id)
@@ -60,6 +60,28 @@ const MapChart = ({ originState, mapChartData }) => {
                     stroke="#FFF"
                     geography={geo}
                     fill={isSelected ? '#F00' : '#DDD'}
+                    onMouseEnter={() => {
+                      const {name} = geo.properties
+                      const {sum, avg} = mapChartData[cur.id]
+                      setTooltipContent(`${name} — Avg:${avg} & Sum:${sum}`)
+                    }}
+                    onMouseLeave={() => {
+                      setTooltipContent('')
+                    }}
+                    satyle={{
+                      default: {
+                        fill: "#D6D6DA",
+                        outline: "none"
+                      },
+                      hover: {
+                        fill: "#F53",
+                        outline: "none"
+                      },
+                      pressed: {
+                        fill: "#E42",
+                        outline: "none"
+                      }
+                    }}
                   />
                 )
               })}
@@ -88,7 +110,7 @@ const MapChart = ({ originState, mapChartData }) => {
                       >
                         <text x={4} fontSize={10} alignmentBaseline="middle">
                           {cur.id}&nbsp;-&nbsp;
-                          {mapChartData ? _formatCount(mapChartData[cur.id]) : ''}
+                          {mapChartData ? mapChartData[cur.id].sum : ''}
                         </text>
                       </Annotation>
                     ))}
@@ -109,10 +131,19 @@ const _formatCount = num => {
 
 const _validateValuesByDate = (cur, mapChartData) => {
   if (mapChartData) {
-    return mapChartData ? mapChartData[cur.id] : ''
+    return mapChartData ? mapChartData[cur.id].sum : ''
   }
 
   return ''
+}
+const rounded = num => {
+  if (num > 1000000000) {
+    return Math.round(num / 100000000) / 10 + "Bn"
+  } else if (num > 1000000) {
+    return Math.round(num / 100000) / 10 + "M"
+  } else {
+    return Math.round(num / 100) / 10 + "K"
+  }
 }
 
 export default MapChart

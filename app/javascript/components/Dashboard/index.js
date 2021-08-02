@@ -1,6 +1,6 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import {withRouter} from 'react-router-dom'
+import {inject, observer} from 'mobx-react'
 import SpinnerPanel from '@arrivalist/common/SpinnerPanel'
 import withStyles from '@material-ui/core/styles/withStyles'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -9,58 +9,59 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import MapChart from './MapChart'
 import LineChart from './LineChart'
-import { KeyboardDatePicker } from '@material-ui/pickers'
+import {KeyboardDatePicker} from '@material-ui/pickers'
+import ReactTooltip from 'react-tooltip'
 
 const styles = theme => ({
-  root:            {
+  root: {
     marginTop: theme.spacing(1)
   },
-  formControl:     {
+  formControl: {
     minWidth: 100
   },
 
   formControlDate: {
-    marginTop:  0,
+    marginTop: 0,
     marginLeft: theme.spacing(2),
   },
-  originState:     {
-    minWidth:                       100,
-    marginTop:                      theme.spacing(2),
-    marginRight:                    30,
+  originState: {
+    minWidth: 100,
+    marginTop: theme.spacing(2),
+    marginRight: 30,
     [theme.breakpoints.only('xs')]: {
       marginLeft: 20
     }
   },
-  startDate:       {
-    maxWidth:                       144,
+  startDate: {
+    maxWidth: 144,
     [theme.breakpoints.only('xs')]: {
       marginLeft: theme.spacing(0.3)
     }
   },
-  endDate:         {
-    maxWidth:                       144,
+  endDate: {
+    maxWidth: 144,
     [theme.breakpoints.only('xs')]: {
       marginLeft: theme.spacing(0.3)
     }
   },
-  period:         {
-    minWidth:    172,
-    marginTop:   theme.spacing(2),
-    marginLeft:  theme.spacing(1),
+  period: {
+    minWidth: 172,
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
   },
-  lineChart:       {
+  lineChart: {
     display: 'flex'
   },
-  filterControls:  {
-    display:        'flex',
+  filterControls: {
+    display: 'flex',
     justifyContent: 'space-between'
   }
 })
 
 @withRouter
 @inject('contextStore', 'tripEventsStore')
-@withStyles(styles, { withTheme: true })
+@withStyles(styles, {withTheme: true})
 @observer
 class Dashboard extends React.Component {
 
@@ -68,7 +69,7 @@ class Dashboard extends React.Component {
 
   constructor(props) {
     super(props)
-    const { contextStore, tripEventsStore } = props
+    const {contextStore, tripEventsStore} = props
     this._analyzer = tripEventsStore.getAnalyzer()
     this._analyzer
       .load()
@@ -99,10 +100,10 @@ class Dashboard extends React.Component {
 
     // State Date Filtered Data
     console.log(
-      'stateDateFiltered[300]',
+      'stateDateRangeFiltered[300]',
       this._analyzer.stateDateRangeFiltered
-        // ? this._analyzer.filteredData[300]
-        // : 'NO FILTERED DATA'
+        ? this._analyzer.stateDateRangeFiltered[300]
+        : 'NO FILTERED DATA'
     )
 
     // Load
@@ -195,7 +196,9 @@ class Dashboard extends React.Component {
           selectedYears={this._analyzer.selectedYears}/>
         <MapChart
           mapChartData={this._analyzer.mapChartData}
-          originState={this._analyzer.originState}/>
+          originState={this._analyzer.originState}
+          setTooltipContent={this._analyzer.setMapChartTooltip}/>
+        <ReactTooltip>this._analyzer.mapChartTooltip</ReactTooltip>
       </div>
     )
   }

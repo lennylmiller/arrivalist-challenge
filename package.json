@@ -51,6 +51,7 @@
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
     "react-simple-maps": "^2.3.0",
+    "react-tooltip": "^4.2.21",
     "recompose": "^0.17.0",
     "slick-carousel": "^1.8.1",
     "typeface-roboto": "0.0.75",

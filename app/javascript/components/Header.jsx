@@ -79,7 +79,9 @@ const Header = () => {
   const [open, setOpen] = React.useState(false)
 
   const toggleDrawer = () => {
-    open ? setOpen(false) : setOpen(true)
+    // I May want to place the filter here,
+    // make it a locking drawer
+    // open ? setOpen(false) : setOpen(true)
   }
 
   return (

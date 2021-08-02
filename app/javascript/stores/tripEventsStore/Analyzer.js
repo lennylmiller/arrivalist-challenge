@@ -8,6 +8,7 @@ import {
 import {
   sum,
   nest,
+  mean,
 } from 'd3'
 
 class Analyzer {
@@ -26,6 +27,7 @@ class Analyzer {
   @observable period = 'all'
   @observable dataIndex = 0
   @observable stateList = []
+  @observable mapChartTooltip
 
   @computed get lineChartData() {
     return this.selectedStates.map(state => {
@@ -34,17 +36,20 @@ class Analyzer {
   }
 
   @computed get mapChartData() {
-    /*
-    * Each state
-    *
-    *
-    *  */
-
-
-    const key = shortDateTime(this.startDate)
-    // console.log('key', key)
-    // console.log('this.byDate', this.byDate)
-    return this.byDate[key]
+    return nest()
+      .key(d => d.home_state)
+      .rollup(v => {
+        return {
+          count: v.length,
+          sum: sum(v, d => d.trip_count),
+          avg: mean(v, d => d.trip_count)
+        }
+      })
+      .entries(this.dateRangeFiltered)
+      .reduce((results, item) => {
+        results[item.key] = item.value
+        return results
+      }, {})
   }
 
   @computed get byYear() {
@@ -83,23 +88,27 @@ class Analyzer {
     return this._loadPromise
   }
 
-  @action setOriginState(state) {
+  @action setMapChartTooltip = tooltip => {
+    this.mapChartTooltip = tooltip
+  }
+
+  @action setOriginState = state => {
     this.selectedStates.length = 0
     this.selectedStates.push(state)
     this.originState = state
   }
 
-  @action setStartDate(date) {
+  @action setStartDate = date => {
     this.period = 'all'
     this.startDate = date
   }
 
-  @action setEndDate(date) {
+  @action setEndDate = date => {
     this.period = 'all'
     this.startDate = date
   }
 
-  @action setPeriod(period) {
+  @action setPeriod = period => {
     this.selectedPeriods.length = 0
     this.period = period
 
