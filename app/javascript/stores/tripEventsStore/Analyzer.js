@@ -1,15 +1,20 @@
 import {action, observable, computed} from 'mobx'
-import * as api from '@geezeo/api'
+import * as api from '@arrivalist/api'
+import {
+  between,
+  appendTimeToDate,
+  shortDateTime
+} from './utils'
 import {
   sum,
   nest,
-  timeFormat
 } from 'd3'
 
 class Analyzer {
 
   _loadPromise
-  @observable selectedStates = ['OR', 'CA']
+
+  @observable selectedStates = ['OR']
   @observable selectedPeriods = ['all']
   @observable isBusy = true
   @observable dataPoints
@@ -22,27 +27,24 @@ class Analyzer {
   @observable dataIndex = 0
   @observable stateList = []
 
-  @computed get mapChartData() {
-    const key = shortDateTime(this.startDate)
-    return this.byDate[key]
-  }
-
   @computed get lineChartData() {
     return this.selectedStates.map(state => {
       return this.byState[state]
     })
   }
 
-  @computed get timesByState() {
-    return this.byState[this.originState]
-  }
+  @computed get mapChartData() {
+    /*
+    * Each state
+    *
+    *
+    *  */
 
-  @computed get dataFilter() {
-    return this.dataPoints
-      .filter(item => item.home_state === this.originState)
-      .filter(item => {
-        return between(item.trip_date, this.startDate, this.endDate)
-      })
+
+    const key = shortDateTime(this.startDate)
+    // console.log('key', key)
+    // console.log('this.byDate', this.byDate)
+    return this.byDate[key]
   }
 
   @computed get byYear() {
@@ -51,34 +53,19 @@ class Analyzer {
       .key(tripEvent => shortDateTime(tripEvent.trip_date))
       .key(tripEvent => tripEvent.home_state === this.originState ? tripEvent.home_state : '')
       .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
-      .entries(this.dataFilter)
+      .entries(this.stateDateRangeFiltered)
   }
 
-  @computed get byState() {
-    return nest()
-      .key(tripEvent => tripEvent.home_state)
-      .key(tripEvent => shortDateTime(tripEvent.trip_date))
-      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
-      .entries(this.dataFilter)
-      .reduce((results, item) => {
-        results[item.key] = item.values
-        return results
-      }, {})
+  @computed get dateRangeFiltered() {
+    return this.dataPoints
+      .filter(item => {
+        return between(item.trip_date, this.startDate, this.endDate)
+      })
   }
 
-  @computed get byDate() {
-    return nest()
-      .key(tripEvent => shortDateTime(tripEvent.trip_date))
-      .key(tripEvent => tripEvent.home_state)
-      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
-      .entries(this.dataFilter)
-      .reduce((results, item) => {
-        results[item.key] = item.values.reduce((values, item) => {
-          values[item.key] = item.value
-          return values
-        }, {})
-        return results
-      }, {})
+  @computed get stateDateRangeFiltered() {
+    return this.dateRangeFiltered
+      .filter(item => item.home_state === this.originState)
   }
 
   @action load = ({force = false} = {}) => {
@@ -87,7 +74,7 @@ class Analyzer {
         .getAllTripEvents()
         .then(action(response => {
           this.dataPoints = response
-            .map(tripEvent => this._transformTripEvents(tripEvent))
+            .map(tripEvent => this._transform(tripEvent))
           this.stateList = this._getEmbeddedStates()
           this.isBusy = false
         }))
@@ -97,6 +84,8 @@ class Analyzer {
   }
 
   @action setOriginState(state) {
+    this.selectedStates.length = 0
+    this.selectedStates.push(state)
     this.originState = state
   }
 
@@ -142,28 +131,10 @@ class Analyzer {
     }
   }
 
-  // TODO: Explain reasoning Not sure how this is going to work within this architecture,
-  // I hope to have time to refactor this to fix multi line linechart
-  // for now return, this will be a placeholder
-  // for two years on same screen, we'll have to use some arbitrary year
-  // and 2019 is good as any
-  _getPeriodRange = period => {
-    let year = 2019
-    let dataWithinRange = this.dataPoints
-    if (!['all', '2019VS2020'].includes(period)) {
-      year = parseInt(period)
-      dataWithinRange = this.dataPoints.filter(item => {
-        return item.trip_date.getFullYear() === year
-      })
-    }
-
-    return this._getFirstAndLast(dataWithinRange)
-  }
-
-  _transformTripEvents = tripEvent => {
+  _transform = tripEvent => {
     return {
       id: tripEvent.id,
-      trip_date: new Date(tripEvent.trip_date),
+      trip_date: appendTimeToDate(tripEvent.trip_date),
       home_state: tripEvent.home_state,
       trip_count: tripEvent.trip_count
     }
@@ -178,6 +149,7 @@ class Analyzer {
       endDate
     }
   }
+
   _getEmbeddedStates = () => {
     // Group by state
     const statesGroup = nest()
@@ -205,16 +177,55 @@ class Analyzer {
     for (let state in statesGroup) {
       states.push(state)
     }
-    console.log('initialize states', states)
+    // console.log('initialize states', states)
     return states
+  }
+
+  _getPeriodRange = period => {
+    let year = 2019
+    let dataWithinRange = this.dataPoints
+    if (!['all', '2019VS2020'].includes(period)) {
+      year = parseInt(period)
+      dataWithinRange = this.dataPoints.filter(item => {
+        return item.trip_date.getFullYear() === year
+      })
+    }
+
+    return this._getFirstAndLast(dataWithinRange)
+  }
+
+
+  // Wall of Shame
+  @computed get byDate() {
+    return nest()
+      .key(tripEvent => shortDateTime(tripEvent.trip_date))
+      .key(tripEvent => tripEvent.home_state)
+      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
+      .entries(this.stateDateRangeFiltered)
+      .reduce((results, item) => {
+        results[item.key] = item.values.reduce((values, item) => {
+          values[item.key] = item.value
+          return values
+        }, {})
+        return results
+      }, {})
+  }
+
+  @computed get timesByState() {
+    return this.byState[this.originState]
+  }
+
+  @computed get byState() {
+    return nest()
+      .key(tripEvent => tripEvent.home_state)
+      .key(tripEvent => shortDateTime(tripEvent.trip_date))
+      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
+      .entries(this.stateDateRangeFiltered)
+      .reduce((results, item) => {
+        results[item.key] = item.values
+        return results
+      }, {})
   }
 }
 
-const between = (here, low, high) => {
-  return low > high
-    ? here >= high && here <= low
-    : here >= low && here <= high
-}
 export default Analyzer
-
-const shortDateTime  = timeFormat('%-m/%-d/%Y %H:%M %p')

@@ -118,22 +118,22 @@ const LineChart = ({ data, dataIndex, id = 'LineChart-Delta' }) => {
         .attr('cy', yScale)
 
       // tooltip
-      const tooltip = svg.append('g')
-
-      // TODO: Implement tooltip
-      // https://observablehq.com/@d3/line-chart-with-tooltip
-      svg.on('touchmove mousemove', function(event) {
-        // const { date, value } = bisect(pointer(event, this)[0])
-        const value = 123
-        const date = new Date()
-
-        const newX = x(date) + 1000
-        const newY = y(date) + 100
-
-        tooltip
-          .attr('transform', `translate(${newX}, ${newY})`)
-          .call(callout, `${value} ${date}`)
-      })
+      // const tooltip = svg.append('g')
+      //
+      // // TODO: Implement tooltip
+      // // https://observablehq.com/@d3/line-chart-with-tooltip
+      // svg.on('touchmove mousemove', function(event) {
+      //   // const { date, value } = bisect(pointer(event, this)[0])
+      //   const value = 123
+      //   const date = new Date()
+      //
+      //   const newX = x(date) + 1000
+      //   const newY = y(date) + 100
+      //
+      //   tooltip
+      //     .attr('transform', `translate(${newX}, ${newY})`)
+      //     .call(callout, `${value} ${date}`)
+      // })
 
       // axes
       const xAxis = axisBottom(xScale)
@@ -147,18 +147,18 @@ const LineChart = ({ data, dataIndex, id = 'LineChart-Delta' }) => {
       const yAxis = axisLeft(yScale)
       svg.select('.y-axis').call(yAxis)
 
-      // zoom
-      const zoomBehavior = zoom()
-        .scaleExtent([0.5, 5])
-        .translateExtent([
-          [0, 0],
-          [width, height],
-        ])
-        .on('zoom', function(event) {
-          const zoomState = event.transform
-          setCurrentZoomState(zoomState)
-        })
-      svg.call(zoomBehavior)
+      // // zoom
+      // const zoomBehavior = zoom()
+      //   .scaleExtent([0.5, 5])
+      //   .translateExtent([
+      //     [0, 0],
+      //     [width, height],
+      //   ])
+      //   .on('zoom', function(event) {
+      //     const zoomState = event.transform
+      //     setCurrentZoomState(zoomState)
+      //   })
+      // svg.call(zoomBehavior)
     },
     [currentZoomState, xValuesTheRealOne, yValuesOne, dimensions]
   )
@@ -176,37 +176,37 @@ const LineChart = ({ data, dataIndex, id = 'LineChart-Delta' }) => {
   )
 }
 
-const callout = (g, value) => {
-  if (! value) return g.style('display', 'none')
-
-  g
-    .style('display', null)
-    .style('pointer-events', 'none')
-    .style('font', '10px sans-serif')
-
-  const path = g.selectAll('path')
-    .data([null])
-    .join('path')
-    .attr('fill', 'white')
-    .attr('stroke', 'black')
-
-  const text = g.selectAll('text')
-    .data([null])
-    .join('text')
-    .call(text => text
-      .selectAll('tspan')
-      .data((value + '').split(/\n/))
-      .join('tspan')
-      .attr('x', 0)
-      .attr('y', (d, i) => `${i * 1.1}em`)
-      .style('font-weight', (_, i) => i ? null : 'bold')
-      .text(d => d))
-
-  const { y, width: w, height: h } = text.node().getBBox()
-
-  text.attr('transform', `translate(${-w / 2},${15 - y})`)
-  path.attr('d', `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`)
-}
-
+// const callout = (g, value) => {
+//   if (! value) return g.style('display', 'none')
+//
+//   g
+//     .style('display', null)
+//     .style('pointer-events', 'none')
+//     .style('font', '10px sans-serif')
+//
+//   const path = g.selectAll('path')
+//     .data([null])
+//     .join('path')
+//     .attr('fill', 'white')
+//     .attr('stroke', 'black')
+//
+//   const text = g.selectAll('text')
+//     .data([null])
+//     .join('text')
+//     .call(text => text
+//       .selectAll('tspan')
+//       .data((value + '').split(/\n/))
+//       .join('tspan')
+//       .attr('x', 0)
+//       .attr('y', (d, i) => `${i * 1.1}em`)
+//       .style('font-weight', (_, i) => i ? null : 'bold')
+//       .text(d => d))
+//
+//   const { y, width: w, height: h } = text.node().getBBox()
+//
+//   text.attr('transform', `translate(${-w / 2},${15 - y})`)
+//   path.attr('d', `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`)
+// }
+//
 
 export default LineChart

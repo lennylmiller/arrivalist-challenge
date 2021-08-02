@@ -29,7 +29,7 @@ function App() {
           <Router>,
             <MuiThemeProvider theme={muiTheme}>
               <CssBaseline/>
-              <Container>
+              <Container maxWidth="md">
                 <Header/>
                 <Switch>
                   <Route exact path="/" component={Dashboard}/>

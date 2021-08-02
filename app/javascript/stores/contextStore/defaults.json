@@ -1,44 +1,14 @@
 {
   "config": {
-    "mode": "Tiles",
     "xxsWidth": 320,
     "useDefaultBackground": false,
     "contentMaxWidth": 960,
     "navigationMode": "hidden",
     "drawerWidth": 240,
     "loginRoutes": [
-      "/accounts",
-      "/analyzer",
-      "/aggregation",
-      "/budgets",
-      "/cashflow/agenda",
-      "/",
-      "/goals",
-      "/help",
-      "/networth",
-      "/transactions"
+      "/dashboard"
     ],
-    "dashboard": {
-      "cards": [
-        "SpendingWheel",
-        "Budgets",
-        "NetWorth",
-        "Accounts",
-        "Transactions",
-        "Goals"
-      ]
-    },
-    "cashflow": {
-      "projectedBalanceLabel": "Daily Balance"
-    },
     "typography": {},
-    "hideNotificationsSnackbar": false,
-    "hideAccountBalanceType": false,
-    "hideContactInfo": false,
-    "disableFixed": false,
-    "disableHarvests": false,
-    "disableAggregation": false,
-    "transformAccountNames": false,
     "tagIcon": {
       "variant": "material"
     },
@@ -88,19 +58,6 @@
         ]
       }
     },
-    "topLevelRoutes": [
-      "/",
-      "/budgets",
-      "/cashflow/agenda",
-      "/cashflow",
-      "/goals",
-      "/networth",
-      "/transactions/search",
-      "/accounts",
-      "/aggregation",
-      "/alerts",
-      "/help"
-    ],
     "disableBackOnTopLevelRoutes": false,
     "overrides": {
       "MuiPickersBasePicker": {

@@ -1,5 +1,9 @@
   
-* [] Functionality
+  * [] Bugs
+      * [x] Changing state throws error
+      * [] Size of LineChart is too small
+      * [] MapChart Data is in error
+  * [] Functionality
     * [] Line Chart:
       * [x] Change the range based on date range selection
       * [x] Implement start and stop date
@@ -24,19 +28,19 @@
       * [x] Clamp start and stop date to existing date
     * [] Map Chart  
       * [] From and To date: US Map values are based on a summation of trip_counts for each state
->>* [] Move React code to Ruby on Rails project
-    * [x] Get working via a simple tutorial
-    * [] Get Material-UI Beer 
-    * [] Port code over from FE to BE
-  * [] Unit tests for Store
-    * [] Analyzer: for each chart test the data shaping
-  * [ ] Nice to have
-    * [] Selecting multiple states
-    * [] Mobile
-    * [] Theme Switching
-    * [] Support for Weekly, Monthly, Yearly views. We have Daily
-    * [] Docker
+    * [x] Move React code to Ruby on Rails project
+      * [x] Get working via a simple tutorial
+      * [x] Get Material-UI Beer 
+      * [x] Port code over from FE to BE
+    * [ ] Nice to have
+      * [] Unit tests for Store
+        * [] Analyzer: for each chart test the data shaping
+      * [] Selecting multiple states
+      * [] Mobile
+      * [] Theme Switching
+      * [] Support for Weekly, Monthly, Yearly views. We have Daily
+      * [] Docker
 
-  * [] Known Issues
-    * [] Zoom data points get all wonky when zooming in. 
+    * [] Known Issues
+      * [] Zoom data points get all wonky when zooming in. 
     

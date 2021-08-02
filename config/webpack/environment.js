@@ -7,11 +7,11 @@ const basePath = 'app/javascript'
 environment.config.merge({
   resolve: {
     alias: {
-      '@geezeo/api': resolve(basePath, 'api/'),
-      '@geezeo/common': resolve(basePath, 'components/common/'),
-      '@geezeo/components': resolve(basePath, 'components/'),
-      '@geezeo/stores': resolve(basePath, 'stores/'),
-      '@geezeo/utils': resolve(basePath, `utils/`)
+      '@arrivalist/api': resolve(basePath, 'api/'),
+      '@arrivalist/common': resolve(basePath, 'components/common/'),
+      '@arrivalist/components': resolve(basePath, 'components/'),
+      '@arrivalist/stores': resolve(basePath, 'stores/'),
+      '@arrivalist/utils': resolve(basePath, `utils/`)
     },
   },
 })

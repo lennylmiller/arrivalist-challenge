@@ -13,7 +13,6 @@ import 'core-js/es/set'
 import 'core-js/features/symbol/iterator'
 import 'innersvg-polyfill'
 import 'inert-polyfill'
-import 'iframe-resizer/js/iframeResizer.contentWindow.js'
 
 if (!window.Promise) {
   require('core-js/features/promise')
