@@ -1,8 +1,8 @@
 import React from 'react'
 import clsx from 'classnames'
-import { makeStyles } from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import { Typography } from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -13,64 +13,64 @@ import MenuIcon from '@material-ui/icons/Menu'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
-  root:         {
+  root: {
     display: 'flex'
   },
-  appBar:       {
+  appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
-      easing:   theme.transitions.easing.sharp,
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShift:  {
-    width:      `calc(100% - ${drawerWidth}px)`,
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
-      easing:   theme.transitions.easing.easeOut,
+      easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  menuButton:   {
+  menuButton: {
     marginRight: theme.spacing(2),
   },
-  hide:         {
+  hide: {
     display: 'none',
   },
-  drawer:       {
-    width:      drawerWidth,
+  drawer: {
+    width: drawerWidth,
     flexShrink: 0,
   },
-  drawerPaper:  {
+  drawerPaper: {
     width: drawerWidth,
   },
   drawerHeader: {
-    display:    'flex',
+    display: 'flex',
     alignItems: 'center',
-    padding:    theme.spacing(0, 1),
+    padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-  content:      {
-    flexGrow:   1,
-    padding:    theme.spacing(3),
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
-      easing:   theme.transitions.easing.sharp,
+      easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
-      easing:   theme.transitions.easing.easeOut,
+      easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
   },
-  toolbarRoot:  {
-    display:        'flex',
+  toolbarRoot: {
+    display: 'flex',
     justifyContent: 'space-between',
-    alignItems:     'center',
+    alignItems: 'center',
   }
 }))
 
@@ -93,7 +93,7 @@ const Header = () => {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar classes={{ root: classes.toolbarRoot }}>
+        <Toolbar classes={{root: classes.toolbarRoot}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"

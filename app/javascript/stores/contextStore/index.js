@@ -78,6 +78,10 @@ class ContextStore {
     return values
   }
 
+  @action handleRejection = e => {
+    this.handleError(e)
+  }
+
   @action handleError = (e, opts = {}) => {
     // log to console
     console.error('handleError called', {e, opts})

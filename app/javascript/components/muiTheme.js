@@ -1,27 +1,27 @@
-import { createTheme } from '@material-ui/core/styles'
+import {createTheme} from '@material-ui/core/styles'
 
 const muiTheme = createTheme({
-  typography : {
-    useNextVariants : true,
+  typography: {
+    useNextVariants: true,
   },
-  palette : {
-    primary : {
-      light : '#63ccff',
-      main : '#009be5',
-      dark : '#006db3',
-      contrastText : '#fff',
+  palette: {
+    primary: {
+      light: '#63ccff',
+      main: '#009be5',
+      dark: '#006db3',
+      contrastText: '#fff',
     },
   },
-  shape : {
-    borderRadius : 8,
+  shape: {
+    borderRadius: 8,
   },
-  overrides : {
-    MuiDrawer : {
-      paper : {
-        minWidth : 256,
+  overrides: {
+    MuiDrawer: {
+      paper: {
+        minWidth: 256,
       },
-      paperAnchorDockedLeft : {
-        borderRight : 'none',
+      paperAnchorDockedLeft: {
+        borderRight: 'none',
       },
     },
   },

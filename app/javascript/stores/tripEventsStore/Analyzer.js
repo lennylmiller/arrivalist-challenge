@@ -52,15 +52,6 @@ class Analyzer {
       }, {})
   }
 
-  @computed get byYear() {
-    return nest()
-      .key(tripEvent => tripEvent.trip_date.getFullYear())
-      .key(tripEvent => shortDateTime(tripEvent.trip_date))
-      .key(tripEvent => tripEvent.home_state === this.originState ? tripEvent.home_state : '')
-      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
-      .entries(this.stateDateRangeFiltered)
-  }
-
   @computed get dateRangeFiltered() {
     return this.dataPoints
       .filter(item => {
@@ -171,16 +162,6 @@ class Analyzer {
         return results
       }, {})
 
-    // const statesGroup = group()
-    //   .key(tripEvent => tripEvent.home_state)
-    //   .key(tripEvent => shortDateTime(tripEvent.trip_date))
-    //   .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
-    //   .entries(this.dataPoints)
-    //   .reduce((results, item) => {
-    //     results[item.key] = item.values
-    //     return results
-    //   }, {})
-
     const states = []
 
     for (let state in statesGroup) {
@@ -203,8 +184,16 @@ class Analyzer {
     return this._getFirstAndLast(dataWithinRange)
   }
 
-
   // Wall of Shame
+  @computed get byYear() {
+    return nest()
+      .key(tripEvent => tripEvent.trip_date.getFullYear())
+      .key(tripEvent => shortDateTime(tripEvent.trip_date))
+      .key(tripEvent => tripEvent.home_state === this.originState ? tripEvent.home_state : '')
+      .rollup(values => sum(values, tripEvent => tripEvent.trip_count))
+      .entries(this.stateDateRangeFiltered)
+  }
+
   @computed get byDate() {
     return nest()
       .key(tripEvent => shortDateTime(tripEvent.trip_date))

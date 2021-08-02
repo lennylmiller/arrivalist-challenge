@@ -85,35 +85,6 @@ class Dashboard extends React.Component {
       return <SpinnerPanel/>
     }
 
-    // console.log('startDate', rfc3339Date(this._analyzer.startDate), 'endDate', rfc3339Date(this._analyzer.endDate))
-    // console.log('startDate', this._analyzer.startDate, 'endDate', this._analyzer.endDate)
-    // console.log('byYear', this._analyzer.byYear)
-    // console.log('lineChartData', this._analyzer.lineChartData)
-    // console.log('start,stop, date', this._analyzer.startDate, this._analyzer.stopDate, this._analyzer.selectedPeriods)
-    // console.log('mapChartData', this._analyzer.mapChartData)
-
-    // mapChartData
-    console.log(
-      'mapChartData',
-      this._analyzer.mapChartData
-    )
-
-    // State Date Filtered Data
-    console.log(
-      'stateDateRangeFiltered[300]',
-      this._analyzer.stateDateRangeFiltered
-        ? this._analyzer.stateDateRangeFiltered[300]
-        : 'NO FILTERED DATA'
-    )
-
-    // Load
-    const endIndex = this._analyzer.dataPoints.length - 1
-    console.log(
-      'dataPoints',
-      this._analyzer.dataPoints[0].trip_date,
-      this._analyzer.dataPoints[endIndex].trip_date
-    )
-
     return (
       <div className={classes.root}>
         <div className={classes.filterControls}>

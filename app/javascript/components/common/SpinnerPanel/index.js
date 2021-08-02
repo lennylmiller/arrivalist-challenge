@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import {observer} from 'mobx-react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -14,10 +14,10 @@ const styles = theme => ({
     display: 'flex'
   },
   root: {
-    width           : '100%',
-    display         : 'flex',
-    justifyContent  : 'center',
-    alignItems      : 'center'
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 
@@ -36,10 +36,10 @@ class SpinnerPanel extends React.Component {
         <div
           className={classes.root}
           style={{
-            minWidth  : minWidth,
-            minHeight : minHeight
+            minWidth: minWidth,
+            minHeight: minHeight
           }}>
-          <CircularProgress />
+          <CircularProgress/>
         </div>
       </div>
     )
