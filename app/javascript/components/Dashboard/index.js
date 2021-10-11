@@ -11,6 +11,7 @@ import MapChart from './MapChart'
 import LineChart from './LineChart'
 import {KeyboardDatePicker} from '@material-ui/pickers'
 import ReactTooltip from 'react-tooltip'
+import BrushableLineChart from './OldBrushableLineChart'
 
 const styles = theme => ({
   root: {
@@ -78,12 +79,19 @@ class Dashboard extends React.Component {
 
   render() {
     const {
-      classes
+      classes,
+      location
     } = this.props
 
     if (this._analyzer.isBusy) {
       return <SpinnerPanel/>
     }
+
+    // console.log('BrushableLineChart', {
+    //   dateExtent: `${this._analyzer.extentsStartDate} - ${this._analyzer.extentsEndDate}`,
+    //   selectedDateRange: `${this._analyzer.startDate} - ${this._analyzer.endDate}`,
+    //   lineChartData: this._analyzer.lineChartData[0][0]
+    // })
 
     return (
       <div className={classes.root}>
@@ -91,9 +99,9 @@ class Dashboard extends React.Component {
           <FormControl className={classes.originState}>
             <InputLabel id="originState">Origin State </InputLabel>
             <Select
-              labelId="originState"
               id="originState"
               value={this._analyzer.originState}
+              labelId="originState"
               onChange={e => {
                 this._analyzer.setOriginState(e.target.value)
               }}>
@@ -146,21 +154,31 @@ class Dashboard extends React.Component {
               }}
               id="period"
               value={this._analyzer.period}>
-              <MenuItem value="all">
-                <em>Using Date Selectors</em>
+              <MenuItem value="all" title="Returns all available data and sets extents appropriately">
+                <em>All Available Data</em>
               </MenuItem>
-              <MenuItem value="2019">
+              <MenuItem value="2019" title="Returns 2019's data and sets extents appropriately">
                 <em>2019</em>
               </MenuItem>
-              <MenuItem value="2020">
+              <MenuItem value="2020" title="Returns 2020's data and sets extents appropriately">
                 <em>2020</em>
               </MenuItem>
-              <MenuItem value="2019VS2020">
+              <MenuItem value="2019VS2020"  title="Returns two years 2019 & 2020's data and sets extents appropriately">
                 <em>2019 vs 2020</em>
               </MenuItem>
             </Select>
           </FormControl>
         </div>
+        <BrushableLineChart
+          dateExtent={this._analyzer.extentsDateRange}
+          dateSelection={this._analyzer.selectedDateRange}
+          data={this._analyzer.lineChartExtentsData[0]}
+          onSelection={dateRange => {
+            this._analyzer.selectDateRange(dateRange)
+            if (location.state) {
+              location.state.dateRange = dateRange
+            }
+          }} />
         <LineChart
           data={this._analyzer.lineChartData}
           dataIndex={this._analyzer.dataIndex}

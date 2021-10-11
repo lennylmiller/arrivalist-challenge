@@ -79,6 +79,7 @@ class ContextStore {
   }
 
   @action handleRejection = e => {
+    alert('error!')
     this.handleError(e)
   }
 
