@@ -224,6 +224,7 @@ class Analyzer {
   }
 
   @action selectDateRange = dateRange => {
+    console.log('dateRange', dateRange)
     this.selectedDateRange = dateRange
   }
 

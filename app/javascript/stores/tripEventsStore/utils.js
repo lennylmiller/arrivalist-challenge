@@ -15,3 +15,4 @@ export const appendTimeToDate = (d = START_TIME) => {
 }
 
 export const shortDateTime = timeFormat('%-m/%-d/%Y %H:%M %p')
+

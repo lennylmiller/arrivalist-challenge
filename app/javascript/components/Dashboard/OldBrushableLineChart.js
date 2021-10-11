@@ -16,11 +16,11 @@ import {
   timeMonth,
   axisBottom,
   timeFormat,
-  isFunction,
   scaleLinear
 } from 'd3'
 import D3Component from './D3Component'
 import withBrowser from './withBrowser'
+import { isFunction } from '../../utils/types'
 
 const Y_LABEL_WIDTH = 15
 
@@ -111,7 +111,7 @@ class OldBrushableLineChart extends D3Component {
       .attr('y', isSmDown ? -1 * (this.plotHeight / 2) : 0)
       .style('font-size', isSmDown ? '14px' : '12px')
       .attr('fill', theme.palette.text.secondary)
-      .text(isSmDown ? '$' : 'Amount ($)')
+      .text(isSmDown ? '$' : 'Trip Count')
 
     this.plotGroup = this.svg
       .append('g')
@@ -277,6 +277,8 @@ class OldBrushableLineChart extends D3Component {
     this.lastSelection = selection
 
     const { onSelection } = this.props
+    const isFunc = isFunction(onSelection)
+    console.log('isFunc', isFunc)
     if (isFunction(onSelection) && selection) {
       onSelection(selection)
     }
